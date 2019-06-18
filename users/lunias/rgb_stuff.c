@@ -140,7 +140,6 @@ void keyboard_post_init_rgb(void) {
             matrix_scan();
             wait_ms(10);
         }
-        rgblight_sethsv_noeeprom(old_hue, 10, 255);
     }
 #endif
     layer_state_set_user(layer_state);
@@ -156,12 +155,11 @@ void matrix_scan_rgb(void) {
 layer_state_t layer_state_set_rgb(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
     if (true) {
-        uint16_t old_hue = rgblight_config.hue;
         switch (biton32(state)) {
             case _QWERTY:
-                rgblight_sethsv_noeeprom((old_hue - 120) % 255, 10, 255); break;
+                rgblight_sethsv_noeeprom(128, 10, 255); break;
             case _QWERTY_FN:
-                rgblight_sethsv_noeeprom((old_hue + 120) % 255, 255, 255); break;
+                rgblight_sethsv_noeeprom(28, 255, 255); break;
             case _MACROS:
                 rgblight_sethsv_noeeprom_orange();
                 userspace_config.is_overwatch ? rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2) : rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 3);
@@ -193,9 +191,9 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
             default: //  for any other layers, or the default layer
                 switch (biton32(default_layer_state)) {
                     case _QWERTY:
-                        rgblight_sethsv_noeeprom(old_hue, 10, 255); break;
+                        rgblight_sethsv_noeeprom(128, 10, 255); break;
                     case _QWERTY_FN:
-                        rgblight_sethsv_noeeprom((old_hue + 120) % 255, 255, 255); break;
+                        rgblight_sethsv_noeeprom(28, 255, 255); break;
                     default:
                         rgblight_sethsv_noeeprom_cyan(); break;
                 }
