@@ -140,6 +140,7 @@ void keyboard_post_init_rgb(void) {
             matrix_scan();
             wait_ms(10);
         }
+        rgblight_sethsv_noeeprom(old_hue, 0, 255);
     }
 #endif
     layer_state_set_user(layer_state);
