@@ -157,9 +157,13 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
     if (true) {
         switch (biton32(state)) {
             case _QWERTY:
-                rgblight_sethsv_noeeprom(128, 10, 255); break;
+                rgblight_sethsv_noeeprom(128, 10, 255);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                break;
             case _QWERTY_FN:
-                rgblight_sethsv_noeeprom(28, 255, 255); break;
+                rgblight_sethsv_noeeprom(28, 255, 255);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
+                break;
             case _MACROS:
                 rgblight_sethsv_noeeprom_orange();
                 userspace_config.is_overwatch ? rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2) : rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 3);
@@ -191,9 +195,13 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
             default: //  for any other layers, or the default layer
                 switch (biton32(default_layer_state)) {
                     case _QWERTY:
-                        rgblight_sethsv_noeeprom(128, 10, 255); break;
+                        rgblight_sethsv_noeeprom(128, 10, 255);
+                        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                        break;
                     case _QWERTY_FN:
-                        rgblight_sethsv_noeeprom(28, 255, 255); break;
+                        rgblight_sethsv_noeeprom(28, 255, 255);
+                        rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
+                        break;
                     default:
                         rgblight_sethsv_noeeprom_cyan(); break;
                 }
