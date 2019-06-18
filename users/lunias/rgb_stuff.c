@@ -159,7 +159,7 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
         uint16_t old_hue = rgblight_config.hue;
         switch (biton32(state)) {
             case _QWERTY:
-                rgblight_sethsv_noeeprom(old_hue, 10, 255); break;
+                rgblight_sethsv_noeeprom((old_hue - 120) % 255, 10, 255); break;
             case _QWERTY_FN:
                 rgblight_sethsv_noeeprom((old_hue + 120) % 255, 255, 255); break;
             case _MACROS:
