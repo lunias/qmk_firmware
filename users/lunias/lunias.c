@@ -85,6 +85,9 @@ __attribute__((weak))
 void keyboard_post_init_keymap(void){ }
 
 void keyboard_post_init_user(void){
+  // debug_enable=true;
+  // debug_matrix=true;
+  // debug_keyboard=true;
 #ifdef RGBLIGHT_ENABLE
     keyboard_post_init_rgb();
 #endif

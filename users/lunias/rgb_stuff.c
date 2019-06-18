@@ -115,7 +115,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
             if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
                 if (userspace_config.rgb_layer_change) {
-                    userspace_config.rgb_layer_change = false;
+                    // userspace_config.rgb_layer_change = false;
                     xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                     eeconfig_update_user(userspace_config.raw);
                 }
@@ -155,8 +155,13 @@ void matrix_scan_rgb(void) {
 
 layer_state_t layer_state_set_rgb(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
+    if (true) {
+        uint16_t old_hue = rgblight_config.hue;
         switch (biton32(state)) {
+            case _QWERTY:
+                rgblight_sethsv_noeeprom(old_hue, 10, 255); break;
+            case _QWERTY_FN:
+                rgblight_sethsv_noeeprom((old_hue + 120) % 255, 255, 255); break;
             case _MACROS:
                 rgblight_sethsv_noeeprom_orange();
                 userspace_config.is_overwatch ? rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2) : rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 3);
@@ -188,9 +193,9 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
             default: //  for any other layers, or the default layer
                 switch (biton32(default_layer_state)) {
                     case _QWERTY:
-                        rgblight_sethsv_noeeprom_magenta(); break;
+                        rgblight_sethsv_noeeprom(old_hue, 10, 255); break;
                     case _QWERTY_FN:
-                        rgblight_sethsv_noeeprom_springgreen(); break;
+                        rgblight_sethsv_noeeprom((old_hue + 120) % 255, 255, 255); break;
                     default:
                         rgblight_sethsv_noeeprom_cyan(); break;
                 }
