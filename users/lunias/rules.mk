@@ -2,6 +2,7 @@ SRC += lunias.c \
        process_records.c
 
 LINK_TIME_OPTIMIZATION_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
